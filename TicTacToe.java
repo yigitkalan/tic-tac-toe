@@ -18,7 +18,7 @@ public class TicTacToe{
         double temp;
         Board best;
         Board game1 = new Board();
-        game1.printBoard();
+
         do {
             game1.getPlayerMove();
             game1.calculateComputerMove();
@@ -29,17 +29,23 @@ public class TicTacToe{
                 double ratio = fitness(child);// (double)child.countO / (child.countX + child.countO);
                 double ratio2 = (double)child.countX / (child.countX + child.countO);
                 System.out.print("x = " + child.countX + " o = " + child.countO + " " );
-                System.out.println(ratio2);
-                if (ratio2==1 && ratio !=1)
-                {
-                    temp = ratio2;
+                System.out.println(ratio);
+                if(child.winner() =='O' || child.winner() == 'X'){               
+                    System.out.println("first option");
                     best = child;
                 }
-                else if(child.winner() =='O'&& child.winner() == 'X'){
+                
+                else if (ratio==1)
+                {
+                    System.out.println("second option");
+                    temp = ratio;
+                    System.out.println("temp is now = " + temp);
                     best = child;
                 }
                 else if (ratio > temp) {
+                    System.out.println("third option");
                     temp = ratio;
+                    System.out.println("temp is now = " + temp);
                     best = child;
                 }
             }
@@ -140,6 +146,7 @@ class Board {
             i = s.nextInt()-1;
             System.out.print("Please enter j = ");
             j = s.nextInt()-1;
+            System.out.println();
         } while (i < 0 || i > 2 || j < 0 || j > 2 || (boardArray[i][j] != EMPTY));
 
         putMark(i, j);
